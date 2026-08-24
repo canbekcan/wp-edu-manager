@@ -1,4 +1,5 @@
 # WP EDU Manager (Host)
+🇹🇷 [Türkçe](https://github.com/canbekcan/wp-edu-manager/blob/main/README-tr.md)
 
 A WordPress-based academic content tracking, automated grading, and student management platform. It allows you to monitor student-generated content, revision histories, SEO metrics, and production speeds through a centralized server.
 
