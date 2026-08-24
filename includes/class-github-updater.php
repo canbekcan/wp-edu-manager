@@ -163,11 +163,24 @@ class WP_EDU_Manager_Github_Updater {
         $plugin_info->last_updated  = date( 'Y-m-d', strtotime( $release->published_at ) );
         
         $readme_content    = $this->get_github_readme();
-        $changelog_content = wp_kses_post( wpautop( $release->body ) ); // Markdown gövdesini WP formatına (p, br) çevirir
+        $release_body      = isset( $release->body ) ? $release->body : '';
+        $changelog_content = wp_kses_post( wpautop( $release_body ) );
+
+        $plugin_info->banners = [
+            'low'  => 'https://raw.githubusercontent.com/' . $this->repo_user . '/' . $this->repo_name . '/main/assets/banner-772x250.png',
+            'high' => 'https://raw.githubusercontent.com/' . $this->repo_user . '/' . $this->repo_name . '/main/assets/banner-1544x500.png',
+        ];
+
+        $plugin_info->icons = [
+            '1x' => 'https://raw.githubusercontent.com/' . $this->repo_user . '/' . $this->repo_name . '/main/assets/icon-128x128.png',
+            '2x' => 'https://raw.githubusercontent.com/' . $this->repo_user . '/' . $this->repo_name . '/main/assets/icon-256x256.png',
+        ];
 
         $plugin_info->sections = [
             'description' => $readme_content,
-            'changelog'   => $changelog_content
+            'changelog'   => $changelog_content,
+            'installation' => '<h4>Kurulum Adımları</h4><ol><li>Eklentiyi etkinleştirin.</li><li><strong>LMS Bağlantı</strong> menüsüne gidin.</li><li>Host LMS tarafından sağlanan API anahtarlarınızı girin.</li></ol>',
+            'faq'          => '<h4>Host bağlantısı nasıl doğrulanır?</h4><p>Ayarlar sayfasındaki durum göstergesi yeşil yandığında bağlantı aktiftir.</p>',
         ];
 
         return $plugin_info;
