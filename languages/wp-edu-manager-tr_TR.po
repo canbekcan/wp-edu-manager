@@ -422,3 +422,17 @@ msgstr "Hata: view-audit.php dosyası eksik."
 
 msgid "Error: view-updates.php file is missing."
 msgstr "Hata: view-updates.php dosyası eksik."
+
+# class-github-updater.php
+msgid "This plugin is updated via GitHub."
+msgstr "Bu eklenti GitHub üzerinden güncellenmektedir."
+
+# wp-edu-manager.php
+msgid "WP EDU Manager (Host) GitHub Status:"
+msgstr "WP EDU Manager (Host) GitHub Durumu:"
+
+msgid "Latest Release:"
+msgstr "Son Sürüm:"
+
+msgid "Check for Updates"
+msgstr "Güncellemeleri Kontrol Et"

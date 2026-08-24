@@ -422,3 +422,17 @@ msgstr ""
 
 msgid "Error: view-updates.php file is missing."
 msgstr ""
+
+# class-github-updater.php
+msgid "This plugin is updated via GitHub."
+msgstr ""
+
+# wp-edu-manager.php
+msgid "WP EDU Manager (Host) GitHub Status:"
+msgstr ""
+
+msgid "Latest Release:"
+msgstr ""
+
+msgid "Check for Updates"
+msgstr ""
