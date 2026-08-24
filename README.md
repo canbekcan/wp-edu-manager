@@ -1,58 +1,58 @@
-# BEKCAN Institute (Manager) - WP EDU Manager
+# WP EDU Manager (Host)
 
-WordPress tabanlı akademik içerik izleme, otomatik notlandırma ve öğrenci yönetim platformudur. Öğrencilerin ürettiği içerikleri, revizyon geçmişlerini, SEO metriklerini ve hız analizlerini merkezi bir sunucu üzerinden denetlemenizi sağlar.
+A WordPress-based academic content tracking, automated grading, and student management platform. It allows you to monitor student-generated content, revision histories, SEO metrics, and production speeds through a centralized server.
 
-> **Önemli Not:** Bu eklenti **Host (Öğretmen)** tarafıdır ve **[BEKCAN Institute (Student) - WP EDU Client](https://github.com/canbekcan/wp-edu-client)** eklentisi ile entegre çalışır. Eğitmen kendi ana sitesine `wp-edu-manager` eklentisini kurarken, derse katılan her öğrenci kendi bağımsız WordPress sitesine `wp-edu-client` eklentisini kurmalıdır.
-
----
-
-## Özellikler
-
-* **Algoritmik Notlandırma:** Kelime sayısı, iç/dış bağlantılar, görseller, eksik ALT etiketleri ve yayın sonrası yapılan değişiklikler (modifications) üzerinden otomatik puanlama yapar.
-* **Asenkron İçerik Eşitleme (WP-Cron):** Öğrenci sitelerindeki içerikleri ve revizyonları sunucuyu yormadan arka planda asenkron olarak çeker.
-* **Tek Tıkla Giriş (SSO):** 24 saat geçerli zaman aşımı (TTL) ve hash doğrulamalı güvenlik anahtarı ile öğrencilerin Host paneline şifresiz geçiş yapmasını sağlar.
-* **Canlı Güncelleme Takibi:** Bağlı öğrenci sitelerinin çekirdek (core), eklenti ve tema güncellemelerini tek tablodan izler.
-* **Doğrudan Bildirim Gönderimi:** Öğrenci sitelerinin WordPress panolarına doğrudan yönetici mesajları ve uyarıları iletir.
-* **Çok Dilli Altyapı (i18n):** İngilizce (varsayılan) ve Türkçe tam dil desteği içerir.
+> **Important Note:** This plugin acts as the **Host (Teacher)** and is designed to work in integration with the **[BEKCAN Institute (Student) - WP EDU Client](https://github.com/canbekcan/wp-edu-client)** plugin. The instructor must install the `wp-edu-manager` plugin on their main site, while each participating student must install the `wp-edu-client` plugin on their independent WordPress sites.
 
 ---
 
-## Mimari ve Sistem Gereksinimleri
+## Features
 
-* **Öğretmen / Ana Site:** WordPress 5.8+, PHP 7.4+, MySQL 5.7+ (`wp-edu-manager` kurulu olmalıdır)
-* **Öğrenci Siteleri:** WordPress 5.8+, PHP 7.4+ (`wp-edu-client` kurulu olmalıdır)
-* **REST API:** Her iki sunucuda da WordPress REST API uç noktaları erişilebilir olmalıdır.
-
----
-
-## Kurulum ve Kullanım Talimatları
-
-### 1. Eğitmen Kurulumu (Host)
-1. Bu repoyu indirin ve klasör adını `wp-edu-manager` yaparak `/wp-content/plugins/` dizinine yükleyin.
-2. WordPress Yönetici Paneli > **Eklentiler** sayfasından **WP EDU Manager (Host)** eklentisini etkinleştirin.
-3. Sol menüde beliren **LMS Manager > Semesters** sayfasına gidin.
-4. Yeni bir dönem adı (örn. *Güz 2026*), kayıt kodu (örn. *NEWS-F26*), bitiş tarihi ve notlandırma katsayılarını belirleyerek dönemi oluşturun.
-
-### 2. Öğrenci Kurulumu (Client)
-1. Öğrenci, kendi WordPress sitesine **WP EDU Client** eklentisini kurup etkinleştirir.
-2. Öğrenci panelindeki ayarlar alanına Eğitmenin site adresini (`Host URL`) ve eğitmenin sağladığı `Registration Code` (Kayıt Kodu) bilgisini girerek kaydı tamamlar.
-3. Eşleşme sağlandığında öğrenciye özel bir `API Token` üretilir ve Host sitesinde öğrenci adına otomatik olarak bir `Contributor` (İçerik Sağlayıcı) hesabı açılır.
-
-### 3. İçerik Eşitleme ve Denetim
-* **Otomatik Tarama:** Sistem her gece 23:50'de otomatik olarak çalışır ve tüm öğrenci sitelerindeki yeni içerikleri, düzenleme sürelerini (WPM) ve revizyon durumlarını çeker.
-* **Manuel Tarama:** **LMS Manager > Dashboard** sekmesinden *Fetch Data Now* butonu ile eşitleme anında tetiklenebilir.
-* **Denetim Ekranı:** **LMS Manager > Content Audit** sekmesinden tüm yazıların SEO uyumluluğu, değiştirilme bayrakları (Modified/Original) ve hesaplanan notları incelenebilir.
+* **Algorithmic Grading:** Automatically calculates grades based on word count, internal/external links, images, missing ALT tags, and post-publication modifications.
+* **Asynchronous Content Sync (WP-Cron):** Fetches content and revisions from student sites asynchronously in the background without overloading the server.
+* **Single Sign-On (SSO):** Allows students to log in to the Host dashboard seamlessly using a secure, hash-verified token with a 24-hour Time-to-Live (TTL).
+* **Live Update Tracking:** Monitors core, plugin, and theme updates across all connected student sites from a single dashboard.
+* **Direct Notice Delivery:** Pushes admin messages and alerts directly to the WordPress dashboards of student sites.
+* **Multilingual Ready (i18n):** Built with English as the primary language, including full translation support.
 
 ---
 
-## Lisans
+## Architecture & System Requirements
 
-Bu proje **MIT Lisansı** altında lisanslanmıştır.
+* **Teacher / Main Site:** WordPress 5.8+, PHP 7.4+, MySQL 5.7+ (Requires `wp-edu-manager`).
+* **Student Sites:** WordPress 5.8+, PHP 7.4+ (Requires `wp-edu-client`).
+* **REST API:** WordPress REST API endpoints must be accessible on both servers.
+
+---
+
+## Installation & Usage Instructions
+
+### 1. Instructor Setup (Host)
+1. Download this repository, rename the folder to `wp-edu-manager`, and upload it to your `/wp-content/plugins/` directory.
+2. Activate the **WP EDU Manager (Host)** plugin via the WordPress Admin Dashboard.
+3. Navigate to **LMS Manager > Semesters** from the left menu.
+4. Create a new semester by defining a semester name (e.g., *Fall 2026*), registration code (e.g., *NEWS-F26*), expiration date, and grading weights.
+
+### 2. Student Setup (Client)
+1. The student installs and activates the **WP EDU Client** plugin on their own WordPress site.
+2. In the student dashboard settings, the student enters the instructor's site address (`Host URL`) and the `Registration Code` provided by the instructor.
+3. Once matched, a unique `API Token` is generated for the student, and a `Contributor` account is automatically created on the Host site.
+
+### 3. Content Sync & Audit
+* **Automated Scan:** The system runs automatically every night at 23:50, fetching new content, typing speeds (WPM), and revision statuses from all student sites.
+* **Manual Scan:** Synchronization can be triggered instantly via the *Fetch Data Now* button under **LMS Manager > Dashboard**.
+* **Audit Dashboard:** Review SEO compliance, modification flags (Modified/Original), and calculated grades for all posts under the **LMS Manager > Content Audit** tab.
+
+---
+
+## License
+
+This project is licensed under the **MIT License**.
 
 ```text
 MIT License
 
-Copyright (c) 2026 Can Bekcan
+Copyright (c) 2026 BEKCAN Institute
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
