@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class WP_EDU_Cron {
     
     public function __construct() {
+        // Ana günlük tetikleyici
         if ( ! wp_next_scheduled( 'lms_daily_sync_event' ) ) {
             $timestamp = strtotime( '23:50:00' );
             if ( $timestamp < time() ) {
@@ -11,66 +12,70 @@ class WP_EDU_Cron {
             }
             wp_schedule_event( $timestamp, 'daily', 'lms_daily_sync_event' );
         }
-
-        add_action( 'lms_daily_sync_event', [ __CLASS__, 'run_sync_task' ] );
+        
+        // Ana görev artık sadece alt görevleri kuyruğa ekler
+        add_action( 'lms_daily_sync_event', [ __CLASS__, 'queue_sync_tasks' ] );
+        
+        // YENİ: Tekil öğrenci işleme kancası (Asenkron çalışır)
+        add_action( 'lms_sync_single_student', [ __CLASS__, 'process_single_student' ], 10, 1 );
     }
 
-    public static function run_sync_task() {
+    // Taramayı başlatmak yerine kuyruğa görev ekleyen yeni metot
+    public static function queue_sync_tasks() {
         global $wpdb;
         $table_students = $wpdb->prefix . 'lms_students';
         
-        $batch_size = 5; 
-        $offset = 0;
+        // Sadece ID'leri çekerek belleği rahatlatıyoruz
+        $students = $wpdb->get_results( "SELECT id FROM $table_students" );
+        
+        if ( empty( $students ) ) {
+            return;
+        }
 
-        do {
-            $students = $wpdb->get_results( $wpdb->prepare(
-                "SELECT * FROM $table_students LIMIT %d OFFSET %d",
-                $batch_size,
-                $offset
-            ) );
+        $delay = 0; 
+        foreach ( $students as $student ) {
+            // Sunucunun aynı anda kilitlenmesini önlemek için her isteği 10 saniye arayla zamanla
+            wp_schedule_single_event( time() + $delay, 'lms_sync_single_student', [ $student->id ] );
+            $delay += 10;
+        }
+    }
 
-            if ( empty( $students ) ) {
-                break;
-            }
+    // YENİ: Sadece tek bir öğrencinin API'sine bağlanan metot
+    public static function process_single_student( $student_id ) {
+        global $wpdb;
+        $table_students = $wpdb->prefix . 'lms_students';
+        
+        $student = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $table_students WHERE id = %d", $student_id ) );
+        if ( ! $student ) return;
 
-            foreach ( $students as $student ) {
-                self::process_student_pages( $student );
-            }
-
-            $offset += $batch_size;
-
-        } while ( count( $students ) === $batch_size );
+        self::process_student_pages( $student );
     }
 
     private static function process_student_pages( $student ) {
         $paged = 1;
         do {
-            // KRİTİK GÜNCELLEME: Önbellek (Cache) eklentilerini delmek için URL'ye uid ve zaman damgası eklendi.
             $endpoint = rtrim( $student->site_url, '/' ) . '/wp-json/lms/v1/content?page=' . $paged . '&uid=' . intval( $student->id ) . '&_t=' . time();
-
             $response = wp_remote_get( $endpoint, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $student->api_token
                 ],
                 'timeout' => 25
             ]);
-
+            
             if ( is_wp_error( $response ) ) {
                 break;
             }
-
+            
             $body = wp_remote_retrieve_body( $response );
             $data = json_decode( $body, true );
-
+            
             if ( ! isset( $data['posts'] ) || empty( $data['posts'] ) ) {
                 break;
             }
-
+            
             self::save_posts_batch( $student->id, $data['posts'] );
-
             $total_pages = intval( $data['total_pages'] ?? 1 );
             $paged++;
-
         } while ( $paged <= $total_pages );
     }
 
@@ -78,14 +83,14 @@ class WP_EDU_Cron {
         global $wpdb;
         $table_posts     = $wpdb->prefix . 'lms_posts';
         $table_revisions = $wpdb->prefix . 'lms_post_revisions';
-
+        
         foreach ( $posts as $post ) {
             $existing_post = $wpdb->get_row( $wpdb->prepare(
                 "SELECT id, current_hash FROM $table_posts WHERE student_id = %d AND remote_post_id = %d",
                 $student_id,
                 $post['id']
             ));
-
+            
             if ( $existing_post ) {
                 if ( $existing_post->current_hash !== $post['hash'] ) {
                     $wpdb->update(
@@ -109,7 +114,6 @@ class WP_EDU_Cron {
                         [ '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%d', '%s', '%s' ],
                         [ '%d' ]
                     );
-
                     $wpdb->insert(
                         $table_revisions,
                         [
@@ -143,9 +147,7 @@ class WP_EDU_Cron {
                     ],
                     [ '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%d', '%s', '%s' ]
                 );
-
                 $new_post_id = $wpdb->insert_id;
-
                 $wpdb->insert(
                     $table_revisions,
                     [

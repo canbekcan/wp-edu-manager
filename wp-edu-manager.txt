@@ -9,11 +9,11 @@
 ├── host.txt
 ├── includes
 │   ├── class-api-host.php
-│   ├── class-client-api.php
 │   ├── class-cron.php
 │   ├── class-database.php
 │   ├── class-user-manager.php
 │   └── wp-edu-sso.php
-└── wp-edu-manager.php
+├── wp-edu-manager.php
+└── wp-edu-manager.txt
 
 3 directories, 14 files

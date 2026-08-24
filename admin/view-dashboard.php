@@ -1,10 +1,10 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// Manuel tetikleme yapıldıysa Cron görevini çalıştır
+// Manuel tetikleme yapıldıysa Cron görevini asenkron olarak kuyruğa ekle
 if ( isset( $_POST['run_manual_sync'] ) && check_admin_referer( 'edu_run_sync_nonce' ) ) {
-    WP_EDU_Cron::run_sync_task();
-    echo '<div class="updated notice is-dismissible"><p>Real-time scan completed successfully.</p></div>';
+    WP_EDU_Cron::queue_sync_tasks();
+    echo '<div class="updated notice is-dismissible"><p>Senkronizasyon görevleri başarıyla arka plana alındı. Siteler sırayla taranacaktır.</p></div>';
 }
 
 global $wpdb;
