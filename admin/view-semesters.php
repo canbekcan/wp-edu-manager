@@ -6,6 +6,9 @@ $table_semesters = $wpdb->prefix . 'lms_semesters';
 
 // Form gönderildiyse veritabanına kaydet
 if ( isset( $_POST['add_semester'] ) && check_admin_referer( 'edu_add_semester_nonce' ) ) {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Bu işlemi gerçekleştirmek için yeterli yetkiniz yok.' );
+    }
     $semester_name = sanitize_text_field( $_POST['semester_name'] );
     $reg_code      = sanitize_text_field( $_POST['registration_code'] );
     $expires_at    = sanitize_text_field( $_POST['expires_at'] );

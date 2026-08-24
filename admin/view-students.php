@@ -11,6 +11,9 @@ $table_revisions = $wpdb->prefix . 'lms_post_revisions';
 // --- Mesaj Gönderme İşlemi (POST Yakalama) ---
 $notice_status = '';
 if ( isset( $_POST['send_lms_notice'] ) && check_admin_referer( 'send_lms_notice_nonce' ) ) {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'Duyuru göndermek için yönetici yetkisine sahip olmalısınız.' );
+    }
     $student_id  = intval( $_POST['target_student_id'] );
     $notice_msg  = sanitize_textarea_field( $_POST['notice_message'] );
     $notice_type = sanitize_text_field( $_POST['notice_type'] );
