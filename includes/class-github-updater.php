@@ -187,6 +187,7 @@ class WP_EDU_Manager_Github_Updater {
         $source_trail = trailingslashit( $source );
         $main_file    = basename( $this->plugin_file );
         
+        // Gelen ZIP'in içinde ana eklenti dosyamızın var olduğundan emin oluyoruz
         if ( $wp_filesystem->exists( $source_trail . $main_file ) ) {
             if ( $source_clean !== $expected_dir ) {
                 if ( $wp_filesystem->exists( $expected_dir ) ) {
