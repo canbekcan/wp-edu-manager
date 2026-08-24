@@ -9,6 +9,7 @@ class WP_EDU_Manager_Github_Updater {
     private $plugin_slug;
     private $plugin_basename;
     private $plugin_data;
+    private $github_api_url;
 
     public function __construct( $repo_user, $repo_name, $plugin_file ) {
         $this->repo_user       = $repo_user;
@@ -16,13 +17,12 @@ class WP_EDU_Manager_Github_Updater {
         $this->plugin_file     = $plugin_file;
         $this->plugin_basename = plugin_basename( $plugin_file );
         $this->plugin_slug     = dirname( $this->plugin_basename );
+        
+        $this->github_api_url = "https://api.github.com/repos/{$repo_user}/{$repo_name}/releases/latest";
 
-        // admin_init kaldırıldı. Transient filtreleri eklendi.
         add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'check_update' ] );
         add_filter( 'site_transient_update_plugins', [ $this, 'check_update' ] );
         add_filter( 'plugins_api', [ $this, 'plugin_popup' ], 10, 3 );
-        
-        // YENİ: Client dosyasından alınan sağlam klasör isimlendirme yöntemi
         add_filter( 'upgrader_source_selection', [ $this, 'fix_github_folder_name' ], 10, 3 );
     }
 
@@ -43,15 +43,15 @@ class WP_EDU_Manager_Github_Updater {
             $url = "https://api.github.com/repos/{$this->repo_user}/{$this->repo_name}/readme";
             $response = wp_remote_get( $url, [
                 'headers' => [
-                    'User-Agent' => 'WordPress-Plugin-Updater',
-                    'Accept'     => 'application/vnd.github.v3.html' 
+                    'User-Agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . home_url(),
+                    'Accept'     => 'application/vnd.github.html' // Markdown'u doğrudan HTML olarak çeker
                 ],
                 'timeout' => 10
             ]);
 
             if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
                 $readme_html = wp_remote_retrieve_body( $response );
-                set_transient( $transient_name, $readme_html, 6 * HOUR_IN_SECONDS );
+                set_transient( $transient_name, $readme_html, 12 * HOUR_IN_SECONDS );
             } else {
                 $readme_html = '<p>' . esc_html__( 'Description could not be loaded from GitHub.', 'wp-edu-manager' ) . '</p>';
             }
@@ -70,11 +70,10 @@ class WP_EDU_Manager_Github_Updater {
         $release = get_transient( $transient_name );
 
         if ( false === $release ) {
-            $url = "https://api.github.com/repos/{$this->repo_user}/{$this->repo_name}/releases/latest";
-            $response = wp_remote_get( $url, [
+            $response = wp_remote_get( $this->github_api_url, [
                 'headers' => [
-                    'User-Agent' => 'WordPress-Plugin-Updater',
-                    'Accept'     => 'application/vnd.github.v3.html+json' 
+                    'User-Agent' => 'WordPress/' . get_bloginfo( 'version' ) . '; ' . home_url(),
+                    'Accept'     => 'application/vnd.github.v3+json' // Client ile birebir uyumlu
                 ],
                 'timeout' => 10
             ]);
@@ -115,14 +114,21 @@ class WP_EDU_Manager_Github_Updater {
         $plugin_info->new_version = $new_version;
         $plugin_info->url         = $release->html_url;
         $plugin_info->package     = $release->zipball_url;
+        $plugin_info->tested      = '6.7'; // WP'ye sürümün uyumlu olduğunu garanti eder
+        $plugin_info->requires_php = '7.4';
 
-        // YENİ: no_update dizisi eklendi
+        // Olası Array offset on null hatalarına karşı WP core dizilerini başlatıyoruz
+        if ( ! isset( $transient->response ) ) $transient->response = [];
+        if ( ! isset( $transient->no_update ) ) $transient->no_update = [];
+
         if ( version_compare( $current_version, $new_version, '<' ) ) {
             $transient->response[$this->plugin_basename] = $plugin_info;
-        } else {
-            if ( ! isset( $transient->no_update ) ) {
-                $transient->no_update = [];
+            
+            // Eğer daha önceden güncelleme yok olarak işaretlendiyse temizle
+            if ( isset( $transient->no_update[$this->plugin_basename] ) ) {
+                unset( $transient->no_update[$this->plugin_basename] );
             }
+        } else {
             $transient->no_update[$this->plugin_basename] = $plugin_info;
             
             if ( isset( $transient->response[$this->plugin_basename] ) ) {
@@ -152,9 +158,12 @@ class WP_EDU_Manager_Github_Updater {
         $plugin_info->author        = $this->plugin_data['Author'];
         $plugin_info->homepage      = $this->plugin_data['PluginURI'];
         $plugin_info->download_link = $release->zipball_url;
+        $plugin_info->tested        = '6.7';
+        $plugin_info->requires_php  = '7.4';
+        $plugin_info->last_updated  = date( 'Y-m-d', strtotime( $release->published_at ) );
         
-        $readme_content = $this->get_github_readme();
-        $changelog_content = isset( $release->body_html ) ? $release->body_html : nl2br( esc_html( $release->body ) );
+        $readme_content    = $this->get_github_readme();
+        $changelog_content = wp_kses_post( wpautop( $release->body ) ); // Markdown gövdesini WP formatına (p, br) çevirir
 
         $plugin_info->sections = [
             'description' => $readme_content,
@@ -164,7 +173,6 @@ class WP_EDU_Manager_Github_Updater {
         return $plugin_info;
     }
 
-    // YENİ: Client'tan alınan klasör ismi sabitleme fonksiyonu
     public function fix_github_folder_name( $source, $remote_source, $upgrader ) {
         global $wp_filesystem;
         
