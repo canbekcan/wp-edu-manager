@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BEKCAN Institute (Manager)
  * Description: Advanced LMS center for monitoring student sites, tracking revisions, and evaluating content.
- * Version: 0.0.1
+ * Version: 0.0.1.3
  * Author: BEKCAN Institute
  * Text Domain: wp-edu-manager
  * Domain Path: /languages
