@@ -1,4 +1,6 @@
 .
+├── LICENSE
+├── README.md
 ├── admin
 │   ├── class-admin-menu.php
 │   ├── view-audit.php
@@ -6,14 +8,19 @@
 │   ├── view-semesters.php
 │   ├── view-students.php
 │   └── view-updates.php
-├── host.txt
 ├── includes
 │   ├── class-api-host.php
 │   ├── class-cron.php
 │   ├── class-database.php
 │   ├── class-user-manager.php
 │   └── wp-edu-sso.php
+├── languages
+│   ├── wp-edu-manager-en_US.mo
+│   ├── wp-edu-manager-en_US.po
+│   ├── wp-edu-manager-tr_TR.mo
+│   └── wp-edu-manager-tr_TR.po
 ├── wp-edu-manager.php
-└── wp-edu-manager.txt
+├── wp-edu-manager.txt
+└── wp-edu.manager.txt
 
-3 directories, 14 files
+4 directories, 20 files
