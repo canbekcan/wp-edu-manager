@@ -12,7 +12,7 @@ $table_revisions = $wpdb->prefix . 'lms_post_revisions';
 $notice_status = '';
 if ( isset( $_POST['send_lms_notice'] ) && check_admin_referer( 'send_lms_notice_nonce' ) ) {
     if ( ! current_user_can( 'manage_options' ) ) {
-        wp_die( 'Duyuru göndermek için yönetici yetkisine sahip olmalısınız.' );
+        wp_die( __( 'You must have administrator privileges to send notices.', 'wp-edu-manager' ) );
     }
     $student_id  = intval( $_POST['target_student_id'] );
     $notice_msg  = sanitize_textarea_field( $_POST['notice_message'] );
@@ -37,13 +37,13 @@ if ( isset( $_POST['send_lms_notice'] ) && check_admin_referer( 'send_lms_notice
         ]);
 
         if ( is_wp_error( $response ) ) {
-            $notice_status = '<div class="error"><p>Failed to reach student site: ' . esc_html( $response->get_error_message() ) . '</p></div>';
+            $notice_status = '<div class="error"><p>' . sprintf( esc_html__( 'Failed to reach student site: %s', 'wp-edu-manager' ), esc_html( $response->get_error_message() ) ) . '</p></div>';
         } else {
             $code = wp_remote_retrieve_response_code( $response );
             if ( $code === 200 ) {
-                $notice_status = '<div class="updated"><p>Notice successfully pushed to ' . esc_html( $student->student_email ) . '!</p></div>';
+                $notice_status = '<div class="updated"><p>' . sprintf( esc_html__( 'Notice successfully pushed to %s!', 'wp-edu-manager' ), esc_html( $student->student_email ) ) . '</p></div>';
             } else {
-                $notice_status = '<div class="error"><p>Failed to set notice. HTTP Code: ' . esc_html( $code ) . '</p></div>';
+                $notice_status = '<div class="error"><p>' . sprintf( esc_html__( 'Failed to set notice. HTTP Code: %s', 'wp-edu-manager' ), esc_html( $code ) ) . '</p></div>';
             }
         }
     }
@@ -76,21 +76,21 @@ if ( $all_posts ) {
 ?>
 
 <div class="wrap">
-    <h1>Student Roster & Communication</h1>
-    <p>List of all connected students, their overall academic performance, and direct admin notification panel.</p>
+    <h1><?php esc_html_e( 'Student Roster & Communication', 'wp-edu-manager' ); ?></h1>
+    <p><?php esc_html_e( 'List of all connected students, their overall academic performance, and direct admin notification panel.', 'wp-edu-manager' ); ?></p>
 
     <?php echo $notice_status; ?>
 
     <!-- Yönetici Mesaj Gönderim Paneli -->
     <div style="background:#fff; padding:20px; border:1px solid #ccd0d4; margin-bottom:20px; max-width: 600px;">
-        <h3 style="margin-top:0;">Push Admin Notice to Student</h3>
+        <h3 style="margin-top:0;"><?php esc_html_e( 'Push Admin Notice to Student', 'wp-edu-manager' ); ?></h3>
         <form method="POST" action="">
             <?php wp_nonce_field( 'send_lms_notice_nonce' ); ?>
             
             <p>
-                <label style="font-weight:bold;">Select Student:</label><br/>
+                <label style="font-weight:bold;"><?php esc_html_e( 'Select Student:', 'wp-edu-manager' ); ?></label><br/>
                 <select name="target_student_id" required style="width:100%; max-width: 400px;">
-                    <option value="">-- Choose a student --</option>
+                    <option value=""><?php esc_html_e( '-- Choose a student --', 'wp-edu-manager' ); ?></option>
                     <?php if ( $students ) : foreach ( $students as $s ) : ?>
                         <option value="<?php echo intval( $s->id ); ?>"><?php echo esc_html( $s->student_email . ' (' . $s->site_url . ')' ); ?></option>
                     <?php endforeach; endif; ?>
@@ -98,21 +98,21 @@ if ( $all_posts ) {
             </p>
 
             <p>
-                <label style="font-weight:bold;">Notice Type:</label><br/>
+                <label style="font-weight:bold;"><?php esc_html_e( 'Notice Type:', 'wp-edu-manager' ); ?></label><br/>
                 <select name="notice_type">
-                    <option value="info">Info (Blue)</option>
-                    <option value="success">Success (Green)</option>
-                    <option value="warning">Warning (Orange)</option>
-                    <option value="error">Error (Red)</option>
+                    <option value="info"><?php esc_html_e( 'Info (Blue)', 'wp-edu-manager' ); ?></option>
+                    <option value="success"><?php esc_html_e( 'Success (Green)', 'wp-edu-manager' ); ?></option>
+                    <option value="warning"><?php esc_html_e( 'Warning (Orange)', 'wp-edu-manager' ); ?></option>
+                    <option value="error"><?php esc_html_e( 'Error (Red)', 'wp-edu-manager' ); ?></option>
                 </select>
             </p>
 
             <p>
-                <label style="font-weight:bold;">Message (Leave empty to clear current notice):</label><br/>
+                <label style="font-weight:bold;"><?php esc_html_e( 'Message (Leave empty to clear current notice):', 'wp-edu-manager' ); ?></label><br/>
                 <textarea name="notice_message" rows="3" style="width:100%; max-width: 400px;"></textarea>
             </p>
 
-            <button type="submit" name="send_lms_notice" class="button button-primary">Send Notice</button>
+            <button type="submit" name="send_lms_notice" class="button button-primary"><?php esc_html_e( 'Send Notice', 'wp-edu-manager' ); ?></button>
         </form>
     </div>
 
@@ -121,13 +121,13 @@ if ( $all_posts ) {
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
-                    <th style="width: 5%;">ID</th>
-                    <th style="width: 20%;">Student Email</th>
-                    <th style="width: 20%;">Site URL</th>
-                    <th style="width: 15%;">Semester</th>
-                    <th style="width: 12%;"><center><span title="Total Content Produced"><span class="dashicons dashicons-media-document" style="vertical-align: middle;"></span> Contents</span></center></th>
-                    <th style="width: 12%;"><center><span title="Cumulative Average Grade"><span class="dashicons dashicons-awards" style="vertical-align: middle;"></span> Avg Grade</span></center></th>
-                    <th style="width: 16%;">Connected At</th>
+                    <th style="width: 5%;"><?php esc_html_e( 'ID', 'wp-edu-manager' ); ?></th>
+                    <th style="width: 20%;"><?php esc_html_e( 'Student Email', 'wp-edu-manager' ); ?></th>
+                    <th style="width: 20%;"><?php esc_html_e( 'Site URL', 'wp-edu-manager' ); ?></th>
+                    <th style="width: 15%;"><?php esc_html_e( 'Semester', 'wp-edu-manager' ); ?></th>
+                    <th style="width: 12%;"><center><span title="<?php esc_attr_e( 'Total Content Produced', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-media-document" style="vertical-align: middle;"></span> <?php esc_html_e( 'Contents', 'wp-edu-manager' ); ?></span></center></th>
+                    <th style="width: 12%;"><center><span title="<?php esc_attr_e( 'Cumulative Average Grade', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-awards" style="vertical-align: middle;"></span> <?php esc_html_e( 'Avg Grade', 'wp-edu-manager' ); ?></span></center></th>
+                    <th style="width: 16%;"><?php esc_html_e( 'Connected At', 'wp-edu-manager' ); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -180,7 +180,7 @@ if ( $all_posts ) {
                         <td><a href="<?php echo esc_url( $student->site_url ); ?>" target="_blank"><?php echo esc_html( $student->site_url ); ?></a></td>
                         <td>
                             <span style="display:inline-block; padding:3px 6px; background:#f0f0f1; border:1px solid #c3c4c7; border-radius:3px; font-size:11px; font-weight:600;">
-                                <?php echo esc_html( $student->semester_name ? $student->semester_name : 'Unknown' ); ?>
+                                <?php echo esc_html( $student->semester_name ? $student->semester_name : __( 'Unknown', 'wp-edu-manager' ) ); ?>
                             </span>
                         </td>
                         <td>
@@ -197,14 +197,14 @@ if ( $all_posts ) {
                                         <?php echo intval( $avg_grade ); ?>
                                     </span>
                                 <?php else : ?>
-                                    <span style="font-size:12px; color:#666;">No Data</span>
+                                    <span style="font-size:12px; color:#666;"><?php esc_html_e( 'No Data', 'wp-edu-manager' ); ?></span>
                                 <?php endif; ?>
                             </center>
                         </td>
                         <td><?php echo esc_html( date( 'Y-m-d H:i', strtotime( $student->connected_at ) ) ); ?></td>
                     </tr>
                 <?php endforeach; else : ?>
-                    <tr><td colspan="7">No students found. Awaiting connections.</td></tr>
+                    <tr><td colspan="7"><?php esc_html_e( 'No students found. Awaiting connections.', 'wp-edu-manager' ); ?></td></tr>
                 <?php endif; ?>
             </tbody>
         </table>

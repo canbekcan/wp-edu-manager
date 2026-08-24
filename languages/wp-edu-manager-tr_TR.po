@@ -1,0 +1,424 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP EDU Manager (Host)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-24 12:00+0000\n"
+"PO-Revision-Date: 2026-08-24 12:00+0000\n"
+"Last-Translator: Can Bekcan\n"
+"Language-Team: Turkish <tr@li.org>\n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: wp-edu-manager\n"
+
+# wp-edu-sso.php
+msgid "Invalid SSO connection. Please update your student plugin and generate a new connection from your dashboard."
+msgstr "Geçersiz SSO bağlantısı. Lütfen öğrenci eklentinizi güncelleyin ve panonuzdan yeni bir bağlantı oluşturun."
+
+msgid "Security Error"
+msgstr "Güvenlik Hatası"
+
+msgid "This secure login link has expired (24 hours). Please return to your student dashboard and click the button again."
+msgstr "Bu güvenli giriş bağlantısının süresi (24 saat) dolmuş. Lütfen öğrenci panelinize dönüp butona tekrar tıklayın."
+
+msgid "SSO Timeout"
+msgstr "SSO Zaman Aşımı"
+
+msgid "SSO security verification failed. The link has been tampered with."
+msgstr "SSO güvenlik doğrulaması başarısız. Bağlantı tahrif edilmiş."
+
+msgid "Security Violation"
+msgstr "Güvenlik İhlali"
+
+msgid "Invalid or expired SSO session key."
+msgstr "Geçersiz veya süresi dolmuş SSO oturum anahtarı."
+
+msgid "SSO Error"
+msgstr "SSO Hata"
+
+msgid "No user found on the Host site corresponding to this email address."
+msgstr "Host sitesinde bu e-posta adresine karşılık gelen bir kullanıcı bulunamadı."
+
+msgid "User Not Found"
+msgstr "Kullanıcı Bulunamadı"
+
+# class-api-host.php
+msgid "Missing token. Check server headers."
+msgstr "Token eksik. Sunucu başlıklarını kontrol edin."
+
+msgid "Invalid or revoked API Token."
+msgstr "Geçersiz veya iptal edilmiş API Token."
+
+msgid "Missing required fields."
+msgstr "Gerekli alanlar eksik."
+
+msgid "Invalid or inactive registration code."
+msgstr "Geçersiz veya pasif kayıt kodu."
+
+msgid "Registration period has ended."
+msgstr "Kayıt süresi sona erdi."
+
+msgid "Already registered."
+msgstr "Zaten kayıtlı."
+
+msgid "Database insertion failed."
+msgstr "Veritabanı kayıt işlemi başarısız."
+
+msgid "Registration successful."
+msgstr "Kayıt başarılı."
+
+# view-updates.php
+msgid "Student Site Updates Monitor"
+msgstr "Öğrenci Sitesi Güncelleme Monitörü"
+
+msgid "Check core, plugin, and theme update requirements across all connected student websites."
+msgstr "Tüm bağlı öğrenci sitelerindeki çekirdek, eklenti ve tema güncelleme gereksinimlerini kontrol edin."
+
+msgid "Student Email"
+msgstr "Öğrenci E-posta"
+
+msgid "Site URL"
+msgstr "Site URL"
+
+msgid "Core Update"
+msgstr "Çekirdek Güncelleme"
+
+msgid "Plugins Update"
+msgstr "Eklenti Güncelleme"
+
+msgid "Themes Update"
+msgstr "Tema Güncelleme"
+
+msgid "Update Available"
+msgstr "Güncelleme Mevcut"
+
+msgid "Up to date"
+msgstr "Güncel"
+
+msgid "%d Plugins"
+msgstr "%d Eklenti"
+
+msgid "None"
+msgstr "Yok"
+
+msgid "%d Themes"
+msgstr "%d Tema"
+
+msgid "No students connected yet."
+msgstr "Henüz bağlı öğrenci yok."
+
+# view-students.php
+msgid "You must have administrator privileges to send notices."
+msgstr "Duyuru göndermek için yönetici yetkisine sahip olmalısınız."
+
+msgid "Failed to reach student site: %s"
+msgstr "Öğrenci sitesine ulaşılamadı: %s"
+
+msgid "Notice successfully pushed to %s!"
+msgstr "Duyuru başarıyla %s adresine iletildi!"
+
+msgid "Failed to set notice. HTTP Code: %s"
+msgstr "Duyuru ayarlanamadı. HTTP Kodu: %s"
+
+msgid "Student Roster & Communication"
+msgstr "Öğrenci Listesi & İletişim"
+
+msgid "List of all connected students, their overall academic performance, and direct admin notification panel."
+msgstr "Bağlı tüm öğrencilerin listesi, genel akademik performansları ve doğrudan yönetici bildirim paneli."
+
+msgid "Push Admin Notice to Student"
+msgstr "Öğrenciye Yönetici Duyurusu Gönder"
+
+msgid "Select Student:"
+msgstr "Öğrenci Seçin:"
+
+msgid "-- Choose a student --"
+msgstr "-- Bir öğrenci seçin --"
+
+msgid "Notice Type:"
+msgstr "Duyuru Tipi:"
+
+msgid "Info (Blue)"
+msgstr "Bilgi (Mavi)"
+
+msgid "Success (Green)"
+msgstr "Başarılı (Yeşil)"
+
+msgid "Warning (Orange)"
+msgstr "Uyarı (Turuncu)"
+
+msgid "Error (Red)"
+msgstr "Hata (Kırmızı)"
+
+msgid "Message (Leave empty to clear current notice):"
+msgstr "Mesaj (Mevcut duyuruyu silmek için boş bırakın):"
+
+msgid "Send Notice"
+msgstr "Duyuru Gönder"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Semester"
+msgstr "Dönem"
+
+msgid "Total Content Produced"
+msgstr "Üretilen Toplam İçerik"
+
+msgid "Contents"
+msgstr "İçerikler"
+
+msgid "Cumulative Average Grade"
+msgstr "Kümülatif Ortalama Not"
+
+msgid "Avg Grade"
+msgstr "Ort Not"
+
+msgid "Connected At"
+msgstr "Bağlantı Tarihi"
+
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+msgid "No Data"
+msgstr "Veri Yok"
+
+msgid "No students found. Awaiting connections."
+msgstr "Öğrenci bulunamadı. Bağlantılar bekleniyor."
+
+# view-semesters.php
+msgid "You do not have sufficient permissions to perform this action."
+msgstr "Bu işlemi gerçekleştirmek için yeterli yetkiniz yok."
+
+msgid "New semester, registration code, and grading weights created successfully."
+msgstr "Yeni dönem, kayıt kodu ve notlandırma ağırlıkları başarıyla oluşturuldu."
+
+msgid "Semester & Grading Management"
+msgstr "Dönem & Notlandırma Yönetimi"
+
+msgid "Create New Semester"
+msgstr "Yeni Dönem Oluştur"
+
+msgid "Semester Name (e.g., Fall 2026)"
+msgstr "Dönem Adı (örn. Güz 2026)"
+
+msgid "Registration Code (e.g., NEWS-F26)"
+msgstr "Kayıt Kodu (örn. HABER-G26)"
+
+msgid "Students will use this code to connect their sites."
+msgstr "Öğrenciler sitelerini bağlamak için bu kodu kullanacaklar."
+
+msgid "Expiration Date"
+msgstr "Bitiş Tarihi"
+
+msgid "Algorithmic Grading Weights"
+msgstr "Algoritmik Notlandırma Ağırlıkları"
+
+msgid "Set the scoring criteria for this specific semester."
+msgstr "Bu döneme özel puanlama kriterlerini belirleyin."
+
+msgid "Word Count (Per Word)"
+msgstr "Kelime Sayısı (Kelime Başına)"
+
+msgid "Links (Per Link)"
+msgstr "Bağlantılar (Link Başına)"
+
+msgid "Images (Per Image)"
+msgstr "Görseller (Görsel Başına)"
+
+msgid "Missing ALT (Penalty)"
+msgstr "Eksik ALT Etiketi (Ceza)"
+
+msgid "Modified Revision (Penalty)"
+msgstr "Değiştirilmiş Revizyon (Ceza)"
+
+msgid "Create Semester"
+msgstr "Dönem Oluştur"
+
+msgid "Semester Name"
+msgstr "Dönem Adı"
+
+msgid "Code"
+msgstr "Kodu"
+
+msgid "Grading Weights (Word / Link / Img / ALT / Mod)"
+msgstr "Notlandırma Ağırlıkları (Kelime/Link/Görsel/ALT/Mod)"
+
+msgid "Expires At"
+msgstr "Bitiş Tarihi"
+
+msgid "Status"
+msgstr "Durum"
+
+msgid "Active"
+msgstr "Aktif"
+
+msgid "Closed"
+msgstr "Kapalı"
+
+msgid "No semesters found."
+msgstr "Dönem bulunamadı."
+
+# view-audit.php
+msgid "Content Audit & Revision Tracking"
+msgstr "İçerik Denetimi & Revizyon Takibi"
+
+msgid "Detailed SEO metrics, publishing dates, integrity flags, and dynamic grading for all student submissions."
+msgstr "Tüm öğrenci gönderimleri için detaylı SEO metrikleri, yayın tarihleri, bütünlük bayrakları ve dinamik notlandırma."
+
+msgid "Filter by Semester:"
+msgstr "Döneme Göre Filtrele:"
+
+msgid "All Semesters"
+msgstr "Tüm Dönemler"
+
+msgid "Filter by Author:"
+msgstr "Yazara Göre Filtrele:"
+
+msgid "All Authors"
+msgstr "Tüm Yazarlar"
+
+msgid "Apply Filters"
+msgstr "Filtreleri Uygula"
+
+msgid "Reset"
+msgstr "Sıfırla"
+
+msgid "Post Title, URL and Assigned Tags"
+msgstr "Yazı Başlığı, URL ve Atanan Etiketler"
+
+msgid "Student Author Email and Semester"
+msgstr "Öğrenci Yazar E-postası ve Dönem"
+
+msgid "Original Publication Date and Last Modified Date"
+msgstr "Orijinal Yayın Tarihi ve Son Değiştirilme Tarihi"
+
+msgid "Publish / Modified"
+msgstr "Yayın / Değiştirilme"
+
+msgid "Total Word Count of Content"
+msgstr "İçeriğin Toplam Kelime Sayısı"
+
+msgid "Internal Links Count"
+msgstr "İç Bağlantı Sayısı"
+
+msgid "External Links Count"
+msgstr "Dış Bağlantı Sayısı"
+
+msgid "Total Images Count"
+msgstr "Toplam Görsel Sayısı"
+
+msgid "Images Missing ALT Attributes"
+msgstr "ALT Etiketi Eksik Görseller"
+
+msgid "Production Time & Speed (Words per Minute)"
+msgstr "Üretim Süresi & Hızı (Dakika Başına Kelime)"
+
+msgid "Speed"
+msgstr "Hız"
+
+msgid "Algorithmic Suggested Grade (0-100)"
+msgstr "Algoritmik Önerilen Not (0-100)"
+
+msgid "Grade"
+msgstr "Not"
+
+msgid "Modification Integrity Status"
+msgstr "Değişiklik Bütünlük Durumu"
+
+msgid "d"
+msgstr "g"
+
+msgid "h"
+msgstr "sa"
+
+msgid "m"
+msgstr "dk"
+
+msgid "Tags:"
+msgstr "Etiketler:"
+
+msgid "Unknown Semester"
+msgstr "Bilinmeyen Dönem"
+
+msgid "Pub:"
+msgstr "Yayın:"
+
+msgid "Mod:"
+msgstr "Değ:"
+
+msgid "WPM"
+msgstr "WPM"
+
+msgid "MODIFIED"
+msgstr "DEĞİŞTİRİLDİ"
+
+msgid "ORIGINAL"
+msgstr "ORİJİNAL"
+
+msgid "No post data collected yet."
+msgstr "Henüz yazı verisi toplanmadı."
+
+# view-dashboard.php
+msgid "Synchronization tasks have been successfully queued in the background. Sites will be scanned sequentially."
+msgstr "Senkronizasyon görevleri başarıyla arka plana alındı. Siteler sırayla taranacaktır."
+
+msgid "LMS Dashboard & Real-Time Sync"
+msgstr "LMS Panosu & Gerçek Zamanlı Senkronizasyon"
+
+msgid "System Overview"
+msgstr "Sisteme Genel Bakış"
+
+msgid "Connected Students:"
+msgstr "Bağlı Öğrenciler:"
+
+msgid "Tracked Posts:"
+msgstr "İzlenen Yazılar:"
+
+msgid "Run Real-Time Scan"
+msgstr "Gerçek Zamanlı Tarama Başlat"
+
+msgid "Fetch latest posts, word counts, and SEO metrics from all connected student sites immediately."
+msgstr "Bağlı tüm öğrenci sitelerinden en son yazıları, kelime sayılarını ve SEO metriklerini anında çekin."
+
+msgid "Fetch Data Now"
+msgstr "Verileri Şimdi Çek"
+
+msgid "Note: Automated daily scan runs at 23:50."
+msgstr "Not: Otomatik günlük tarama saat 23:50'de çalışır."
+
+# class-admin-menu.php
+msgid "LMS Dashboard"
+msgstr "LMS Panosu"
+
+msgid "LMS Manager"
+msgstr "LMS Yöneticisi"
+
+msgid "Semesters"
+msgstr "Dönemler"
+
+msgid "Students"
+msgstr "Öğrenciler"
+
+msgid "Content Audit"
+msgstr "İçerik Denetimi"
+
+msgid "Site Updates"
+msgstr "Site Güncellemeleri"
+
+msgid "Error: view-dashboard.php file is missing."
+msgstr "Hata: view-dashboard.php dosyası eksik."
+
+msgid "Error: view-semesters.php file is missing in the admin folder."
+msgstr "Hata: view-semesters.php dosyası admin klasöründe eksik."
+
+msgid "Error: view-students.php file is missing."
+msgstr "Hata: view-students.php dosyası eksik."
+
+msgid "Error: view-audit.php file is missing."
+msgstr "Hata: view-audit.php dosyası eksik."
+
+msgid "Error: view-updates.php file is missing."
+msgstr "Hata: view-updates.php dosyası eksik."

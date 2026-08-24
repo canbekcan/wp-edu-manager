@@ -1,0 +1,424 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP EDU Manager (Host)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-24 12:00+0000\n"
+"PO-Revision-Date: 2026-08-24 12:00+0000\n"
+"Last-Translator: Can Bekcan\n"
+"Language-Team: English (US)\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: wp-edu-manager\n"
+
+# wp-edu-sso.php
+msgid "Invalid SSO connection. Please update your student plugin and generate a new connection from your dashboard."
+msgstr ""
+
+msgid "Security Error"
+msgstr ""
+
+msgid "This secure login link has expired (24 hours). Please return to your student dashboard and click the button again."
+msgstr ""
+
+msgid "SSO Timeout"
+msgstr ""
+
+msgid "SSO security verification failed. The link has been tampered with."
+msgstr ""
+
+msgid "Security Violation"
+msgstr ""
+
+msgid "Invalid or expired SSO session key."
+msgstr ""
+
+msgid "SSO Error"
+msgstr ""
+
+msgid "No user found on the Host site corresponding to this email address."
+msgstr ""
+
+msgid "User Not Found"
+msgstr ""
+
+# class-api-host.php
+msgid "Missing token. Check server headers."
+msgstr ""
+
+msgid "Invalid or revoked API Token."
+msgstr ""
+
+msgid "Missing required fields."
+msgstr ""
+
+msgid "Invalid or inactive registration code."
+msgstr ""
+
+msgid "Registration period has ended."
+msgstr ""
+
+msgid "Already registered."
+msgstr ""
+
+msgid "Database insertion failed."
+msgstr ""
+
+msgid "Registration successful."
+msgstr ""
+
+# view-updates.php
+msgid "Student Site Updates Monitor"
+msgstr ""
+
+msgid "Check core, plugin, and theme update requirements across all connected student websites."
+msgstr ""
+
+msgid "Student Email"
+msgstr ""
+
+msgid "Site URL"
+msgstr ""
+
+msgid "Core Update"
+msgstr ""
+
+msgid "Plugins Update"
+msgstr ""
+
+msgid "Themes Update"
+msgstr ""
+
+msgid "Update Available"
+msgstr ""
+
+msgid "Up to date"
+msgstr ""
+
+msgid "%d Plugins"
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "%d Themes"
+msgstr ""
+
+msgid "No students connected yet."
+msgstr ""
+
+# view-students.php
+msgid "You must have administrator privileges to send notices."
+msgstr ""
+
+msgid "Failed to reach student site: %s"
+msgstr ""
+
+msgid "Notice successfully pushed to %s!"
+msgstr ""
+
+msgid "Failed to set notice. HTTP Code: %s"
+msgstr ""
+
+msgid "Student Roster & Communication"
+msgstr ""
+
+msgid "List of all connected students, their overall academic performance, and direct admin notification panel."
+msgstr ""
+
+msgid "Push Admin Notice to Student"
+msgstr ""
+
+msgid "Select Student:"
+msgstr ""
+
+msgid "-- Choose a student --"
+msgstr ""
+
+msgid "Notice Type:"
+msgstr ""
+
+msgid "Info (Blue)"
+msgstr ""
+
+msgid "Success (Green)"
+msgstr ""
+
+msgid "Warning (Orange)"
+msgstr ""
+
+msgid "Error (Red)"
+msgstr ""
+
+msgid "Message (Leave empty to clear current notice):"
+msgstr ""
+
+msgid "Send Notice"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "Semester"
+msgstr ""
+
+msgid "Total Content Produced"
+msgstr ""
+
+msgid "Contents"
+msgstr ""
+
+msgid "Cumulative Average Grade"
+msgstr ""
+
+msgid "Avg Grade"
+msgstr ""
+
+msgid "Connected At"
+msgstr ""
+
+msgid "Unknown"
+msgstr ""
+
+msgid "No Data"
+msgstr ""
+
+msgid "No students found. Awaiting connections."
+msgstr ""
+
+# view-semesters.php
+msgid "You do not have sufficient permissions to perform this action."
+msgstr ""
+
+msgid "New semester, registration code, and grading weights created successfully."
+msgstr ""
+
+msgid "Semester & Grading Management"
+msgstr ""
+
+msgid "Create New Semester"
+msgstr ""
+
+msgid "Semester Name (e.g., Fall 2026)"
+msgstr ""
+
+msgid "Registration Code (e.g., NEWS-F26)"
+msgstr ""
+
+msgid "Students will use this code to connect their sites."
+msgstr ""
+
+msgid "Expiration Date"
+msgstr ""
+
+msgid "Algorithmic Grading Weights"
+msgstr ""
+
+msgid "Set the scoring criteria for this specific semester."
+msgstr ""
+
+msgid "Word Count (Per Word)"
+msgstr ""
+
+msgid "Links (Per Link)"
+msgstr ""
+
+msgid "Images (Per Image)"
+msgstr ""
+
+msgid "Missing ALT (Penalty)"
+msgstr ""
+
+msgid "Modified Revision (Penalty)"
+msgstr ""
+
+msgid "Create Semester"
+msgstr ""
+
+msgid "Semester Name"
+msgstr ""
+
+msgid "Code"
+msgstr ""
+
+msgid "Grading Weights (Word / Link / Img / ALT / Mod)"
+msgstr ""
+
+msgid "Expires At"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Active"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "No semesters found."
+msgstr ""
+
+# view-audit.php
+msgid "Content Audit & Revision Tracking"
+msgstr ""
+
+msgid "Detailed SEO metrics, publishing dates, integrity flags, and dynamic grading for all student submissions."
+msgstr ""
+
+msgid "Filter by Semester:"
+msgstr ""
+
+msgid "All Semesters"
+msgstr ""
+
+msgid "Filter by Author:"
+msgstr ""
+
+msgid "All Authors"
+msgstr ""
+
+msgid "Apply Filters"
+msgstr ""
+
+msgid "Reset"
+msgstr ""
+
+msgid "Post Title, URL and Assigned Tags"
+msgstr ""
+
+msgid "Student Author Email and Semester"
+msgstr ""
+
+msgid "Original Publication Date and Last Modified Date"
+msgstr ""
+
+msgid "Publish / Modified"
+msgstr ""
+
+msgid "Total Word Count of Content"
+msgstr ""
+
+msgid "Internal Links Count"
+msgstr ""
+
+msgid "External Links Count"
+msgstr ""
+
+msgid "Total Images Count"
+msgstr ""
+
+msgid "Images Missing ALT Attributes"
+msgstr ""
+
+msgid "Production Time & Speed (Words per Minute)"
+msgstr ""
+
+msgid "Speed"
+msgstr ""
+
+msgid "Algorithmic Suggested Grade (0-100)"
+msgstr ""
+
+msgid "Grade"
+msgstr ""
+
+msgid "Modification Integrity Status"
+msgstr ""
+
+msgid "d"
+msgstr ""
+
+msgid "h"
+msgstr ""
+
+msgid "m"
+msgstr ""
+
+msgid "Tags:"
+msgstr ""
+
+msgid "Unknown Semester"
+msgstr ""
+
+msgid "Pub:"
+msgstr ""
+
+msgid "Mod:"
+msgstr ""
+
+msgid "WPM"
+msgstr ""
+
+msgid "MODIFIED"
+msgstr ""
+
+msgid "ORIGINAL"
+msgstr ""
+
+msgid "No post data collected yet."
+msgstr ""
+
+# view-dashboard.php
+msgid "Synchronization tasks have been successfully queued in the background. Sites will be scanned sequentially."
+msgstr ""
+
+msgid "LMS Dashboard & Real-Time Sync"
+msgstr ""
+
+msgid "System Overview"
+msgstr ""
+
+msgid "Connected Students:"
+msgstr ""
+
+msgid "Tracked Posts:"
+msgstr ""
+
+msgid "Run Real-Time Scan"
+msgstr ""
+
+msgid "Fetch latest posts, word counts, and SEO metrics from all connected student sites immediately."
+msgstr ""
+
+msgid "Fetch Data Now"
+msgstr ""
+
+msgid "Note: Automated daily scan runs at 23:50."
+msgstr ""
+
+# class-admin-menu.php
+msgid "LMS Dashboard"
+msgstr ""
+
+msgid "LMS Manager"
+msgstr ""
+
+msgid "Semesters"
+msgstr ""
+
+msgid "Students"
+msgstr ""
+
+msgid "Content Audit"
+msgstr ""
+
+msgid "Site Updates"
+msgstr ""
+
+msgid "Error: view-dashboard.php file is missing."
+msgstr ""
+
+msgid "Error: view-semesters.php file is missing in the admin folder."
+msgstr ""
+
+msgid "Error: view-students.php file is missing."
+msgstr ""
+
+msgid "Error: view-audit.php file is missing."
+msgstr ""
+
+msgid "Error: view-updates.php file is missing."
+msgstr ""

@@ -14,18 +14,30 @@ function wp_edu_host_handle_sso_login() {
     
     // 1. Dinamik Zaman Damgası Kontrolü (Geriye dönük uyumluluğu zorunlu kılıyoruz)
     if ( empty( $time ) || empty( $hash ) ) {
-        wp_die( 'SSO bağlantısı geçersiz. Lütfen öğrenci eklentinizi güncelleyin ve panonuzdan yeni bir bağlantı oluşturun.', 'Güvenlik Hatası', [ 'response' => 403 ] );
+        wp_die( 
+            __( 'Invalid SSO connection. Please update your student plugin and generate a new connection from your dashboard.', 'wp-edu-manager' ), 
+            __( 'Security Error', 'wp-edu-manager' ), 
+            [ 'response' => 403 ] 
+        );
     }
 
     // 2. 24 Saat (86400 saniye) Zaman Aşımı Kontrolü
     if ( ( time() - $time ) > DAY_IN_SECONDS ) {
-        wp_die( 'Bu güvenli giriş bağlantısının süresi (24 saat) dolmuş. Lütfen öğrenci panelinize dönüp butona tekrar tıklayın.', 'SSO Zaman Aşımı', [ 'response' => 403 ] );
+        wp_die( 
+            __( 'This secure login link has expired (24 hours). Please return to your student dashboard and click the button again.', 'wp-edu-manager' ), 
+            __( 'SSO Timeout', 'wp-edu-manager' ), 
+            [ 'response' => 403 ] 
+        );
     }
 
     // 3. Hash Bütünlük (Integrity) Kontrolü (Bağlantı kurcalanmış mı?)
     $expected_hash = hash( 'sha256', $token . $time );
     if ( ! hash_equals( $expected_hash, $hash ) ) {
-        wp_die( 'SSO güvenlik doğrulaması başarısız. Bağlantı tahrif edilmiş.', 'Güvenlik İhlali', [ 'response' => 403 ] );
+        wp_die( 
+            __( 'SSO security verification failed. The link has been tampered with.', 'wp-edu-manager' ), 
+            __( 'Security Violation', 'wp-edu-manager' ), 
+            [ 'response' => 403 ] 
+        );
     }
 
     global $wpdb;
@@ -38,13 +50,21 @@ function wp_edu_host_handle_sso_login() {
     ) );
 
     if ( ! $student ) {
-        wp_die( 'Geçersiz veya süresi dolmuş SSO oturum anahtarı.', 'SSO Hata', [ 'response' => 403 ] );
+        wp_die( 
+            __( 'Invalid or expired SSO session key.', 'wp-edu-manager' ), 
+            __( 'SSO Error', 'wp-edu-manager' ), 
+            [ 'response' => 403 ] 
+        );
     }
 
     // Host sitesinde bu e-postaya ait WP kullanıcısını bul
     $user = get_user_by( 'email', $student->student_email );
     if ( ! $user ) {
-        wp_die( 'Host sitesinde bu e-posta adresine karşılık gelen bir kullanıcı bulunamadı.', 'Kullanıcı Bulunamadı', [ 'response' => 404 ] );
+        wp_die( 
+            __( 'No user found on the Host site corresponding to this email address.', 'wp-edu-manager' ), 
+            __( 'User Not Found', 'wp-edu-manager' ), 
+            [ 'response' => 404 ] 
+        );
     }
 
     // 4. Oturum Çerezini (Cookie) 24 Saat ile Sınırla

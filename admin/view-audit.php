@@ -59,16 +59,16 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
 ?>
 
 <div class="wrap">
-    <h1>Content Audit & Revision Tracking</h1>
-    <p>Detailed SEO metrics, publishing dates, integrity flags, and dynamic grading for all student submissions.</p>
+    <h1><?php esc_html_e( 'Content Audit & Revision Tracking', 'wp-edu-manager' ); ?></h1>
+    <p><?php esc_html_e( 'Detailed SEO metrics, publishing dates, integrity flags, and dynamic grading for all student submissions.', 'wp-edu-manager' ); ?></p>
 
     <form method="GET" action="" style="margin: 15px 0; background: #fff; padding: 15px; border: 1px solid #ccd0d4; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
         <input type="hidden" name="page" value="lms-audit">
         
         <div style="display: flex; align-items: center; gap: 10px;">
-            <label><strong>Filter by Semester:</strong></label>
+            <label><strong><?php esc_html_e( 'Filter by Semester:', 'wp-edu-manager' ); ?></strong></label>
             <select name="filter_semester" style="min-width: 180px;">
-                <option value="">All Semesters</option>
+                <option value=""><?php esc_html_e( 'All Semesters', 'wp-edu-manager' ); ?></option>
                 <?php foreach ( $semesters as $sem ) : ?>
                     <option value="<?php echo esc_attr( $sem->id ); ?>" <?php selected( $selected_semester, $sem->id ); ?>>
                         <?php echo esc_html( $sem->semester_name ); ?>
@@ -78,9 +78,9 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
         </div>
 
         <div style="display: flex; align-items: center; gap: 10px;">
-            <label><strong>Filter by Author:</strong></label>
+            <label><strong><?php esc_html_e( 'Filter by Author:', 'wp-edu-manager' ); ?></strong></label>
             <select name="filter_author" style="min-width: 200px;">
-                <option value="">All Authors</option>
+                <option value=""><?php esc_html_e( 'All Authors', 'wp-edu-manager' ); ?></option>
                 <?php foreach ( $authors as $author ) : ?>
                     <option value="<?php echo esc_attr( $author->student_email ); ?>" <?php selected( $selected_author, $author->student_email ); ?>>
                         <?php echo esc_html( $author->student_email ); ?>
@@ -89,9 +89,9 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
             </select>
         </div>
 
-        <button type="submit" class="button button-primary">Apply Filters</button>
+        <button type="submit" class="button button-primary"><?php esc_html_e( 'Apply Filters', 'wp-edu-manager' ); ?></button>
         <?php if ( ! empty( $selected_author ) || $selected_semester > 0 ) : ?>
-            <a href="admin.php?page=lms-audit" class="button">Reset</a>
+            <a href="admin.php?page=lms-audit" class="button"><?php esc_html_e( 'Reset', 'wp-edu-manager' ); ?></a>
         <?php endif; ?>
     </form>
 
@@ -99,21 +99,21 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
-                    <th style="width: 20%;"><span title="Post Title, URL and Assigned Tags"><span class="dashicons dashicons-admin-page" style="vertical-align: middle;"></span></span></th>
-                    <th style="width: 15%;"><center><span title="Student Author Email and Semester"><span class="dashicons dashicons-admin-users" style="vertical-align: middle;"></span></span></center></th>
-                    <th style="width: 11%;"><span title="Original Publication Date and Last Modified Date">Publish / Modified</span></th>
+                    <th style="width: 20%;"><span title="<?php esc_attr_e( 'Post Title, URL and Assigned Tags', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-admin-page" style="vertical-align: middle;"></span></span></th>
+                    <th style="width: 15%;"><center><span title="<?php esc_attr_e( 'Student Author Email and Semester', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-admin-users" style="vertical-align: middle;"></span></span></center></th>
+                    <th style="width: 11%;"><span title="<?php esc_attr_e( 'Original Publication Date and Last Modified Date', 'wp-edu-manager' ); ?>"><?php esc_html_e( 'Publish / Modified', 'wp-edu-manager' ); ?></span></th>
                     <th style="width: 6%;">
                         <a href="?page=lms-audit&orderby=word_count&order=<?php echo ($order === 'ASC') ? 'DESC' : 'ASC'; ?>">
-                            <span title="Total Word Count of Content"><span class="dashicons dashicons-text-page" style="vertical-align: middle;"></span></span>
+                            <span title="<?php esc_attr_e( 'Total Word Count of Content', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-text-page" style="vertical-align: middle;"></span></span>
                         </a>
                     </th>
-                    <th style="width: 4%;"><span title="Internal Links Count"><span class="dashicons dashicons-fullscreen-exit-alt" style="vertical-align: middle;"></span></span></th>
-                    <th style="width: 4%;"><span title="External Links Count"><span class="dashicons dashicons-fullscreen-alt" style="vertical-align: middle;"></span></span></th>
-                    <th style="width: 4%;"><span title="Total Images Count"><span class="dashicons dashicons-format-image" style="vertical-align: middle;"></span></span></th>
-                    <th style="width: 6%;"><span title="Images Missing ALT Attributes"><span class="dashicons dashicons-images-alt" style="vertical-align: middle;"></span></span></th>
-                    <th style="width: 10%;"><span title="Production Time & Speed (Words per Minute)"><span class="dashicons dashicons-clock" style="vertical-align: middle;"></span> Speed</span></th>
-                    <th style="width: 10%;"><center><span title="Algorithmic Suggested Grade (0-100)"><span class="dashicons dashicons-awards" style="vertical-align: middle;"></span> Grade</span></center></th>
-                    <th style="width: 10%;"><center><span title="Modification Integrity Status"><span class="dashicons dashicons-format-status" style="vertical-align: middle;"></span></span></center></th>
+                    <th style="width: 4%;"><span title="<?php esc_attr_e( 'Internal Links Count', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-fullscreen-exit-alt" style="vertical-align: middle;"></span></span></th>
+                    <th style="width: 4%;"><span title="<?php esc_attr_e( 'External Links Count', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-fullscreen-alt" style="vertical-align: middle;"></span></span></th>
+                    <th style="width: 4%;"><span title="<?php esc_attr_e( 'Total Images Count', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-format-image" style="vertical-align: middle;"></span></span></th>
+                    <th style="width: 6%;"><span title="<?php esc_attr_e( 'Images Missing ALT Attributes', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-images-alt" style="vertical-align: middle;"></span></span></th>
+                    <th style="width: 10%;"><span title="<?php esc_attr_e( 'Production Time & Speed (Words per Minute)', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-clock" style="vertical-align: middle;"></span> <?php esc_html_e( 'Speed', 'wp-edu-manager' ); ?></span></th>
+                    <th style="width: 10%;"><center><span title="<?php esc_attr_e( 'Algorithmic Suggested Grade (0-100)', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-awards" style="vertical-align: middle;"></span> <?php esc_html_e( 'Grade', 'wp-edu-manager' ); ?></span></center></th>
+                    <th style="width: 10%;"><center><span title="<?php esc_attr_e( 'Modification Integrity Status', 'wp-edu-manager' ); ?>"><span class="dashicons dashicons-format-status" style="vertical-align: middle;"></span></span></center></th>
                 </tr>
             </thead>
             <tbody>
@@ -130,9 +130,9 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
                     $d_mins  = $duration_mins % 60;
                     
                     $duration_text = '';
-                    if ( $d_days > 0 )  $duration_text .= $d_days . 'd ';
-                    if ( $d_hours > 0 ) $duration_text .= $d_hours . 'h ';
-                    if ( $d_mins > 0 || $duration_text === '' ) $duration_text .= $d_mins . 'm';
+                    if ( $d_days > 0 )  $duration_text .= $d_days . __( 'd', 'wp-edu-manager' ) . ' ';
+                    if ( $d_hours > 0 ) $duration_text .= $d_hours . __( 'h', 'wp-edu-manager' ) . ' ';
+                    if ( $d_mins > 0 || $duration_text === '' ) $duration_text .= $d_mins . __( 'm', 'wp-edu-manager' );
                     $duration_text = trim( $duration_text );
 
                     $raw_wpm = $post->word_count / $duration_mins;
@@ -163,7 +163,7 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
                         <td>
                             <strong><a href="<?php echo esc_url( $post->post_url ); ?>" target="_blank"><?php echo esc_html( $post->post_title ); ?></a></strong>
                             <?php if ( ! empty( $post->post_tags ) ) : ?>
-                                <br/><small style="color: #666;"><strong>Tags:</strong> <?php echo esc_html( $post->post_tags ); ?></small>
+                                <br/><small style="color: #666;"><strong><?php esc_html_e( 'Tags:', 'wp-edu-manager' ); ?></strong> <?php echo esc_html( $post->post_tags ); ?></small>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -171,13 +171,13 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
                                 <?php echo esc_html( $post->student_email ); ?>
                                 <br/>
                                 <span style="display:inline-block; margin-top:5px; padding:2px 6px; background:#f0f0f1; border:1px solid #c3c4c7; border-radius:3px; font-size:10px; color:#50575e; font-weight:600;">
-                                    <?php echo esc_html( $post->semester_name ?? 'Unknown Semester' ); ?>
+                                    <?php echo esc_html( $post->semester_name ?? __( 'Unknown Semester', 'wp-edu-manager' ) ); ?>
                                 </span>
                             </center>
                         </td>
                         <td>
-                            <small><strong>Pub:</strong> <?php echo esc_html( $post->post_date ); ?></small><br/>
-                            <small><strong>Mod:</strong> <?php echo esc_html( $post->post_modified ); ?></small>
+                            <small><strong><?php esc_html_e( 'Pub:', 'wp-edu-manager' ); ?></strong> <?php echo esc_html( $post->post_date ); ?></small><br/>
+                            <small><strong><?php esc_html_e( 'Mod:', 'wp-edu-manager' ); ?></strong> <?php echo esc_html( $post->post_modified ); ?></small>
                         </td>
                         <td>
                             <span style="font-weight:bold; color: <?php echo ( $post->word_count < 300 ) ? '#d63638' : '#00a32a'; ?>">
@@ -197,7 +197,7 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
                                 <span style="display:block; font-size:13px; font-weight:bold; color:#2271b1;">
                                     <?php echo esc_html( $duration_text ); ?>
                                 </span>
-                                <small style="color: #666;"><?php echo $wpm; ?> WPM</small>
+                                <small style="color: #666;"><?php echo $wpm; ?> <?php esc_html_e( 'WPM', 'wp-edu-manager' ); ?></small>
                             </center>
                         </td>
                         <td>
@@ -209,15 +209,15 @@ $semesters = $wpdb->get_results( "SELECT id, semester_name FROM $table_semesters
                         </td>
                         <td><center>
                             <?php if ( $post->is_modified == 1 ) : ?>
-                                <span style="display:inline-block; padding:3px 8px; background:#f8d7da; color:#721c24; border-radius:3px; font-size:11px; font-weight:bold;">MODIFIED</span>
+                                <span style="display:inline-block; padding:3px 8px; background:#f8d7da; color:#721c24; border-radius:3px; font-size:11px; font-weight:bold;"><?php esc_html_e( 'MODIFIED', 'wp-edu-manager' ); ?></span>
                             <?php else : ?>
-                                <span style="display:inline-block; padding:3px 8px; background:#d4edda; color:#155724; border-radius:3px; font-size:11px; font-weight:bold;">ORIGINAL</span>
+                                <span style="display:inline-block; padding:3px 8px; background:#d4edda; color:#155724; border-radius:3px; font-size:11px; font-weight:bold;"><?php esc_html_e( 'ORIGINAL', 'wp-edu-manager' ); ?></span>
                             <?php endif; ?>
                             </center>
                         </td>
                     </tr>
                 <?php endforeach; else : ?>
-                    <tr><td colspan="11">No post data collected yet.</td></tr>
+                    <tr><td colspan="11"><?php esc_html_e( 'No post data collected yet.', 'wp-edu-manager' ); ?></td></tr>
                 <?php endif; ?>
             </tbody>
         </table>

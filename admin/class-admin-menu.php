@@ -10,8 +10,8 @@ class WP_EDU_Admin_Menu {
     public function register_admin_menus() {
         // Main Menu
         add_menu_page( 
-            'LMS Dashboard', 
-            'LMS Manager', 
+            __( 'LMS Dashboard', 'wp-edu-manager' ), 
+            __( 'LMS Manager', 'wp-edu-manager' ), 
             'manage_options', 
             'lms-manager', 
             [ $this, 'render_dashboard' ], 
@@ -20,10 +20,10 @@ class WP_EDU_Admin_Menu {
         );
         
         // Sub Menus
-        add_submenu_page( 'lms-manager', 'Semesters', 'Semesters', 'manage_options', 'lms-semesters', [ $this, 'render_semesters' ] );
-        add_submenu_page( 'lms-manager', 'Students', 'Students', 'manage_options', 'lms-students', [ $this, 'render_students' ] );
-        add_submenu_page( 'lms-manager', 'Content Audit', 'Content Audit', 'manage_options', 'lms-audit', [ $this, 'render_audit' ] );
-        add_submenu_page( 'lms-manager', 'Site Updates', 'Site Updates', 'manage_options', 'lms-updates', [ $this, 'render_updates_page' ] );
+        add_submenu_page( 'lms-manager', __( 'Semesters', 'wp-edu-manager' ), __( 'Semesters', 'wp-edu-manager' ), 'manage_options', 'lms-semesters', [ $this, 'render_semesters' ] );
+        add_submenu_page( 'lms-manager', __( 'Students', 'wp-edu-manager' ), __( 'Students', 'wp-edu-manager' ), 'manage_options', 'lms-students', [ $this, 'render_students' ] );
+        add_submenu_page( 'lms-manager', __( 'Content Audit', 'wp-edu-manager' ), __( 'Content Audit', 'wp-edu-manager' ), 'manage_options', 'lms-audit', [ $this, 'render_audit' ] );
+        add_submenu_page( 'lms-manager', __( 'Site Updates', 'wp-edu-manager' ), __( 'Site Updates', 'wp-edu-manager' ), 'manage_options', 'lms-updates', [ $this, 'render_updates_page' ] );
     }
 
     public function render_dashboard() { 
@@ -31,7 +31,7 @@ class WP_EDU_Admin_Menu {
         if ( file_exists( $file_path ) ) {
             require_once $file_path;
         } else {
-            echo '<div class="error"><p>Error: view-dashboard.php file is missing.</p></div>';
+            echo '<div class="error"><p>' . esc_html__( 'Error: view-dashboard.php file is missing.', 'wp-edu-manager' ) . '</p></div>';
         }
     }
 
@@ -41,7 +41,7 @@ class WP_EDU_Admin_Menu {
         if ( file_exists( $file_path ) ) {
             require_once $file_path;
         } else {
-            echo '<div class="error"><p>Error: view-semesters.php file is missing in the admin folder.</p></div>';
+            echo '<div class="error"><p>' . esc_html__( 'Error: view-semesters.php file is missing in the admin folder.', 'wp-edu-manager' ) . '</p></div>';
         }
     }
 
@@ -50,7 +50,7 @@ class WP_EDU_Admin_Menu {
         if ( file_exists( $file_path ) ) {
             require_once $file_path;
         } else {
-            echo '<div class="error"><p>Error: view-students.php file is missing.</p></div>';
+            echo '<div class="error"><p>' . esc_html__( 'Error: view-students.php file is missing.', 'wp-edu-manager' ) . '</p></div>';
         }
     }
 
@@ -59,7 +59,7 @@ class WP_EDU_Admin_Menu {
         if ( file_exists( $file_path ) ) {
             require_once $file_path;
         } else {
-            echo '<div class="error"><p>Error: view-audit.php file is missing.</p></div>';
+            echo '<div class="error"><p>' . esc_html__( 'Error: view-audit.php file is missing.', 'wp-edu-manager' ) . '</p></div>';
         }
     }
 
@@ -68,7 +68,7 @@ class WP_EDU_Admin_Menu {
         if ( file_exists( $file_path ) ) {
             require_once $file_path;
         } else {
-            echo '<div class="error"><p>Error: view-updates.php file is missing.</p></div>';
+            echo '<div class="error"><p>' . esc_html__( 'Error: view-updates.php file is missing.', 'wp-edu-manager' ) . '</p></div>';
         }
     }
 }

@@ -35,7 +35,7 @@ class WP_EDU_API_Host {
         }
 
         if ( empty( $token ) ) {
-            return new WP_Error( 'unauthorized', 'Missing token. Check server headers.', [ 'status' => 401 ] );
+            return new WP_Error( 'unauthorized', __( 'Missing token. Check server headers.', 'wp-edu-manager' ), [ 'status' => 401 ] );
         }
 
         $table_students = $wpdb->prefix . 'lms_students';
@@ -45,7 +45,7 @@ class WP_EDU_API_Host {
         ) );
 
         if ( ! $student ) {
-            return new WP_Error( 'forbidden', 'Invalid or revoked API Token.', [ 'status' => 403 ] );
+            return new WP_Error( 'forbidden', __( 'Invalid or revoked API Token.', 'wp-edu-manager' ), [ 'status' => 403 ] );
         }
 
         $table_posts     = $wpdb->prefix . 'lms_posts';
@@ -124,7 +124,7 @@ class WP_EDU_API_Host {
         $student_email = sanitize_email( $params['student_email'] ?? '' );
 
         if ( empty( $reg_code ) || empty( $site_url ) || empty( $student_email ) ) {
-            return new WP_Error( 'missing_data', 'Missing required fields.', [ 'status' => 400 ] );
+            return new WP_Error( 'missing_data', __( 'Missing required fields.', 'wp-edu-manager' ), [ 'status' => 400 ] );
         }
 
         $table_semesters = $wpdb->prefix . 'lms_semesters';
@@ -133,10 +133,10 @@ class WP_EDU_API_Host {
             $reg_code
         ) );
 
-        if ( ! $semester ) { return new WP_Error( 'invalid_code', 'Invalid or inactive registration code.', [ 'status' => 403 ] ); }
+        if ( ! $semester ) { return new WP_Error( 'invalid_code', __( 'Invalid or inactive registration code.', 'wp-edu-manager' ), [ 'status' => 403 ] ); }
 
         if ( current_time( 'mysql' ) > $semester->expires_at ) {
-            return new WP_Error( 'expired_code', 'Registration period has ended.', [ 'status' => 403 ] );
+            return new WP_Error( 'expired_code', __( 'Registration period has ended.', 'wp-edu-manager' ), [ 'status' => 403 ] );
         }
 
         $table_students = $wpdb->prefix . 'lms_students';
@@ -146,7 +146,7 @@ class WP_EDU_API_Host {
         ) );
 
         if ( $existing_student ) {
-            return rest_ensure_response( [ 'status' => 'success', 'message' => 'Already registered.', 'api_token' => $existing_student->api_token ] );
+            return rest_ensure_response( [ 'status' => 'success', 'message' => __( 'Already registered.', 'wp-edu-manager' ), 'api_token' => $existing_student->api_token ] );
         }
 
         $api_token = bin2hex( random_bytes( 32 ) );
@@ -162,12 +162,12 @@ class WP_EDU_API_Host {
             [ '%d', '%s', '%s', '%s', '%s' ]
         );
 
-        if ( ! $inserted ) { return new WP_Error( 'db_error', 'Database insertion failed.', [ 'status' => 500 ] ); }
+        if ( ! $inserted ) { return new WP_Error( 'db_error', __( 'Database insertion failed.', 'wp-edu-manager' ), [ 'status' => 500 ] ); }
 
         if ( class_exists( 'WP_EDU_User_Manager' ) ) {
             WP_EDU_User_Manager::provision_student_user( $student_email, $site_url );
         }
 
-        return rest_ensure_response( [ 'status' => 'success', 'message' => 'Registration successful.', 'api_token' => $api_token ] );
+        return rest_ensure_response( [ 'status' => 'success', 'message' => __( 'Registration successful.', 'wp-edu-manager' ), 'api_token' => $api_token ] );
     }
 }

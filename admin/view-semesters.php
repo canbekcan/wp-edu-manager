@@ -7,7 +7,7 @@ $table_semesters = $wpdb->prefix . 'lms_semesters';
 // Form gönderildiyse veritabanına kaydet
 if ( isset( $_POST['add_semester'] ) && check_admin_referer( 'edu_add_semester_nonce' ) ) {
     if ( ! current_user_can( 'manage_options' ) ) {
-        wp_die( 'Bu işlemi gerçekleştirmek için yeterli yetkiniz yok.' );
+        wp_die( __( 'You do not have sufficient permissions to perform this action.', 'wp-edu-manager' ) );
     }
     $semester_name = sanitize_text_field( $_POST['semester_name'] );
     $reg_code      = sanitize_text_field( $_POST['registration_code'] );
@@ -36,7 +36,7 @@ if ( isset( $_POST['add_semester'] ) && check_admin_referer( 'edu_add_semester_n
         // Veri tipleri: string, string, string, int, float, float, float, float, float
         [ '%s', '%s', '%s', '%d', '%f', '%f', '%f', '%f', '%f' ]
     );
-    echo '<div class="updated notice is-dismissible"><p>New semester, registration code, and grading weights created successfully.</p></div>';
+    echo '<div class="updated notice is-dismissible"><p>' . esc_html__( 'New semester, registration code, and grading weights created successfully.', 'wp-edu-manager' ) . '</p></div>';
 }
 
 // Mevcut dönemleri çek
@@ -44,59 +44,59 @@ $semesters = $wpdb->get_results( "SELECT * FROM $table_semesters ORDER BY id DES
 ?>
 
 <div class="wrap">
-    <h1>Semester & Grading Management</h1>
+    <h1><?php esc_html_e( 'Semester & Grading Management', 'wp-edu-manager' ); ?></h1>
     
     <div style="display:flex; gap: 20px; margin-top:20px;">
         
         <!-- FORM KISMI -->
         <div style="flex: 1; background:#fff; padding:20px; border:1px solid #ccd0d4; box-shadow:0 1px 1px rgba(0,0,0,.04);">
-            <h3>Create New Semester</h3>
+            <h3><?php esc_html_e( 'Create New Semester', 'wp-edu-manager' ); ?></h3>
             <form method="POST" action="">
                 <?php wp_nonce_field( 'edu_add_semester_nonce' ); ?>
                 
                 <p>
-                    <label>Semester Name (e.g., Fall 2026)</label><br/>
+                    <label><?php esc_html_e( 'Semester Name (e.g., Fall 2026)', 'wp-edu-manager' ); ?></label><br/>
                     <input type="text" name="semester_name" required class="regular-text">
                 </p>
                 <p>
-                    <label>Registration Code (e.g., NEWS-F26)</label><br/>
+                    <label><?php esc_html_e( 'Registration Code (e.g., NEWS-F26)', 'wp-edu-manager' ); ?></label><br/>
                     <input type="text" name="registration_code" required class="regular-text" style="text-transform: uppercase;">
-                    <br/><small>Students will use this code to connect their sites.</small>
+                    <br/><small><?php esc_html_e( 'Students will use this code to connect their sites.', 'wp-edu-manager' ); ?></small>
                 </p>
                 <p>
-                    <label>Expiration Date</label><br/>
+                    <label><?php esc_html_e( 'Expiration Date', 'wp-edu-manager' ); ?></label><br/>
                     <input type="datetime-local" name="expires_at" required class="regular-text">
                 </p>
 
                 <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-                <h4>Algorithmic Grading Weights</h4>
-                <p style="font-size: 12px; color: #666;">Set the scoring criteria for this specific semester.</p>
+                <h4><?php esc_html_e( 'Algorithmic Grading Weights', 'wp-edu-manager' ); ?></h4>
+                <p style="font-size: 12px; color: #666;"><?php esc_html_e( 'Set the scoring criteria for this specific semester.', 'wp-edu-manager' ); ?></p>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
-                        <label>Word Count (Per Word)</label><br/>
+                        <label><?php esc_html_e( 'Word Count (Per Word)', 'wp-edu-manager' ); ?></label><br/>
                         <input type="number" step="0.01" name="weight_word_count" value="0.1" required style="width:100%;">
                     </div>
                     <div>
-                        <label>Links (Per Link)</label><br/>
+                        <label><?php esc_html_e( 'Links (Per Link)', 'wp-edu-manager' ); ?></label><br/>
                         <input type="number" step="0.1" name="weight_link" value="2.0" required style="width:100%;">
                     </div>
                     <div>
-                        <label>Images (Per Image)</label><br/>
+                        <label><?php esc_html_e( 'Images (Per Image)', 'wp-edu-manager' ); ?></label><br/>
                         <input type="number" step="0.1" name="weight_image" value="3.0" required style="width:100%;">
                     </div>
                     <div>
-                        <label>Missing ALT (Penalty)</label><br/>
+                        <label><?php esc_html_e( 'Missing ALT (Penalty)', 'wp-edu-manager' ); ?></label><br/>
                         <input type="number" step="0.1" name="penalty_alt" value="5.0" required style="width:100%;">
                     </div>
                     <div style="grid-column: span 2;">
-                        <label>Modified Revision (Penalty)</label><br/>
+                        <label><?php esc_html_e( 'Modified Revision (Penalty)', 'wp-edu-manager' ); ?></label><br/>
                         <input type="number" step="0.1" name="penalty_modified" value="10.0" required style="width:100%;">
                     </div>
                 </div>
 
                 <p style="margin-top: 20px;">
-                    <input type="submit" name="add_semester" class="button button-primary" value="Create Semester">
+                    <input type="submit" name="add_semester" class="button button-primary" value="<?php esc_attr_e( 'Create Semester', 'wp-edu-manager' ); ?>">
                 </p>
             </form>
         </div>
@@ -106,12 +106,12 @@ $semesters = $wpdb->get_results( "SELECT * FROM $table_semesters ORDER BY id DES
             <table class="wp-list-table widefat fixed striped">
                 <thead>
                     <tr>
-                        <th style="width: 5%;">ID</th>
-                        <th style="width: 20%;">Semester Name</th>
-                        <th style="width: 15%;">Code</th>
-                        <th style="width: 40%;">Grading Weights (Word / Link / Img / ALT / Mod)</th>
-                        <th style="width: 10%;">Expires At</th>
-                        <th style="width: 10%;">Status</th>
+                        <th style="width: 5%;"><?php esc_html_e( 'ID', 'wp-edu-manager' ); ?></th>
+                        <th style="width: 20%;"><?php esc_html_e( 'Semester Name', 'wp-edu-manager' ); ?></th>
+                        <th style="width: 15%;"><?php esc_html_e( 'Code', 'wp-edu-manager' ); ?></th>
+                        <th style="width: 40%;"><?php esc_html_e( 'Grading Weights (Word / Link / Img / ALT / Mod)', 'wp-edu-manager' ); ?></th>
+                        <th style="width: 10%;"><?php esc_html_e( 'Expires At', 'wp-edu-manager' ); ?></th>
+                        <th style="width: 10%;"><?php esc_html_e( 'Status', 'wp-edu-manager' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -132,14 +132,14 @@ $semesters = $wpdb->get_results( "SELECT * FROM $table_semesters ORDER BY id DES
                             <td><?php echo esc_html( date('Y-m-d', strtotime($sem->expires_at)) ); ?></td>
                             <td>
                                 <?php if ( $sem->is_active ) : ?>
-                                    <span style="color:green; font-weight:bold;">Active</span>
+                                    <span style="color:green; font-weight:bold;"><?php esc_html_e( 'Active', 'wp-edu-manager' ); ?></span>
                                 <?php else : ?>
-                                    <span style="color:red; font-weight:bold;">Closed</span>
+                                    <span style="color:red; font-weight:bold;"><?php esc_html_e( 'Closed', 'wp-edu-manager' ); ?></span>
                                 <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; else : ?>
-                        <tr><td colspan="6">No semesters found.</td></tr>
+                        <tr><td colspan="6"><?php esc_html_e( 'No semesters found.', 'wp-edu-manager' ); ?></td></tr>
                     <?php endif; ?>
                 </tbody>
             </table>
