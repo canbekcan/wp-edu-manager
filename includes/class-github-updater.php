@@ -28,6 +28,33 @@ class WP_EDU_Manager_Github_Updater {
         $this->plugin_data = get_plugin_data( $this->plugin_file );
     }
 
+    // YENİ: README.md dosyasını GitHub üzerinden HTML olarak getirir
+    private function get_github_readme() {
+        $transient_name = 'wp_edu_readme_' . $this->repo;
+        $readme_html = get_transient( $transient_name );
+
+        if ( false === $readme_html ) {
+            $url = "https://api.github.com/repos/{$this->user}/{$this->repo}/readme";
+            $response = wp_remote_get( $url, [
+                'headers' => [
+                    'User-Agent' => 'WordPress-Plugin-Updater',
+                    // ÖNEMLİ: GitHub API'ye Markdown dosyasını HTML'e dönüştürüp vermesini söylüyoruz
+                    'Accept'     => 'application/vnd.github.v3.html' 
+                ]
+            ]);
+
+            if ( ! is_wp_error( $response ) && wp_remote_retrieve_response_code( $response ) === 200 ) {
+                $readme_html = wp_remote_retrieve_body( $response );
+                set_transient( $transient_name, $readme_html, 6 * HOUR_IN_SECONDS );
+            } else {
+                $readme_html = '<p>' . esc_html__( 'Description could not be loaded from GitHub.', 'wp-edu-manager' ) . '</p>';
+            }
+        }
+
+        return $readme_html;
+    }
+
+    // GÜNCELLENDİ: Sürüm notlarını HTML formatında almak için Accept başlığı değiştirildi
     private function get_github_release() {
         $transient_name = 'wp_edu_updater_' . $this->repo;
         $release = get_transient( $transient_name );
@@ -36,7 +63,9 @@ class WP_EDU_Manager_Github_Updater {
             $url = "https://api.github.com/repos/{$this->user}/{$this->repo}/releases/latest";
             $response = wp_remote_get( $url, [
                 'headers' => [
-                    'User-Agent' => 'WordPress-Plugin-Updater'
+                    'User-Agent' => 'WordPress-Plugin-Updater',
+                    // ÖNEMLİ: Release notlarındaki Markdown'u HTML yapıp "body_html" objesi olarak dönmesini sağlar
+                    'Accept'     => 'application/vnd.github.v3.html+json' 
                 ]
             ]);
 
@@ -94,9 +123,16 @@ class WP_EDU_Manager_Github_Updater {
         $plugin_info->author        = $this->plugin_data['Author'];
         $plugin_info->homepage      = $this->plugin_data['PluginURI'];
         $plugin_info->download_link = $release->zipball_url;
-        $plugin_info->sections      = [
-            'description' => esc_html__( 'This plugin is updated via GitHub.', 'wp-edu-manager' ),
-            'changelog'   => nl2br( esc_html( $release->body ) )
+        
+        // README dosyasını çek
+        $readme_content = $this->get_github_readme();
+        
+        // API html çevirisi gönderdiyse onu kullan, yoksa ham metni (body) düz metin olarak ver
+        $changelog_content = isset( $release->body_html ) ? $release->body_html : nl2br( esc_html( $release->body ) );
+
+        $plugin_info->sections = [
+            'description' => $readme_content,
+            'changelog'   => $changelog_content
         ];
 
         return $plugin_info;

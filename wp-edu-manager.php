@@ -43,9 +43,10 @@ if ( is_admin() ) {
     add_action( 'admin_init', function() {
         if ( isset( $_GET['force_gh_manager_check'] ) && $_GET['force_gh_manager_check'] == '1' ) {
             
-            // WordPress genel önbelleği ve eklentiye özel önbelleği sil
+            // WordPress genel önbelleği ve eklentiye özel önbellekleri sil
             delete_site_transient( 'update_plugins' );
             delete_transient( 'wp_edu_updater_wp-edu-manager' );
+            delete_transient( 'wp_edu_readme_wp-edu-manager' ); // YENİ: Readme önbelleğini de temizler
             
             // Parametreyi temizleyip sayfayı yenile
             wp_safe_redirect( remove_query_arg( 'force_gh_manager_check' ) );
